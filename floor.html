@@ -1,0 +1,194 @@
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="cssFiles/game.css"/>
+	<link rel="stylesheet" type="text/css" href="cssFiles/font-awesome.min.css"/>
+	<script type='text/javascript' src='jsFiles/jquery.min.js'></script>
+</head>
+
+<body>
+<div id='wrapper'>
+	<div id='floor1'>
+		<center>
+			<div id='doors'>
+				<img id='exit' src='imgFiles/door/exit.png'/>
+				<img onclick='playOpenDoor()' id='door' class='room100' src='imgFiles/door/door100.png'/>
+				<img onclick='playOpenDoor()' id='door' class='room101' src='imgFiles/door/door101.png'/>
+				<img onclick='playOpenDoor()' id='door' class='room102' src='imgFiles/door/door102.png'/>
+				<img onclick='playOpenDoor()' id='door' class='room103' src='imgFiles/door/door103.png'/>
+				<img onclick='playOpenDoor()' id='door' class='room104' src='imgFiles/door/door104.png'/>
+			</div>
+
+			<img onclick="showFloorLevels()" id='stairs' src='imgFiles/stairs.png'/>
+			<div id='floorlevel'>
+		 		<div id='floortext' class='floor2'><span class='fa fa-angle-double-up'></span><span> Go to 2nd Floor</span></div>
+		 	</div>
+			
+			<img id='exitsign' src='imgFiles/exitsign.gif'/>
+		</center>
+	</div>
+</div>
+
+<audio id='homebg' src='audioFiles/ingame.mp3' autoplay='autoplay' loop='loop'></audio>
+<audio id='open' src='audioFiles/door-open.mp3'></audio>
+<audio id='close' src='audioFiles/door-close.mp3'></audio>
+</body>
+</html>
+
+<script>
+function showFloorLevels() {
+    var x = document.getElementById("floorlevel");
+
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    }else{
+        x.style.display = "none";
+    }
+}
+
+function playOpenDoor(){
+	var open = document.getElementById("open"); 
+	open.play();
+}
+
+function playCloseDoor(){
+	var close = document.getElementById("close"); 
+	close.play();
+}
+
+
+//AJAX CALLS FOR FLOOR LEVELS
+$(document).on('click', '.floor1', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/floor1',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});	
+});
+
+$(document).on('click', '.floor2', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/floor2',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});	
+});
+
+
+//AJAX CALLS FOR ROOM NUMBER
+$(document).on('click', '.room100', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/room100',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});	
+	
+	socket.emit('room100',{r:"room100"});
+});
+
+$(document).on('click', '.room101', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/room101',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});	
+	//socket.emit('start',{currplayer:currplayer, loc:"floor1"});
+});
+
+$(document).on('click', '.room102', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/room102',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});	
+	socket.emit('room101',{r:"room101"});
+});
+
+$(document).on('click', '.room103', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/room103',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});
+	socket.emit('room102',{r:"room102"});
+});
+
+$(document).on('click', '.room104', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/room104',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});	
+	socket.emit('room103',{r:"room103"});
+});
+
+$(document).on('click', '.exitdoor100', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/floor1',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});	
+	socket.emit('room104',{r:"room104"});
+});
+
+
+$(document).on('click', '.exitdoor101', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/floor1',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});	
+});
+
+
+$(document).on('click', '.exitdoor102', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/floor1',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});	
+});
+
+
+$(document).on('click', '.exitdoor103', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/floor1',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});	
+});
+
+
+$(document).on('click', '.exitdoor104', function(){
+	$.ajax({
+		type: 'GET',
+		url: '/floor1',
+		success:function(result){
+			$('#wrapper').html(result);
+		}
+	});	
+});
+
+</script>
